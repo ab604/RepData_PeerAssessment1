@@ -19,8 +19,8 @@ To load and preprocess the data, I first provide the URL to the data:
 fileUrl <- "https://github.com/ab604/RepData_PeerAssessment1/blob/master/activity.zip"
 ```
 
-If the data is not already downloaded and unzipped, this is the code to get it. 
-It also produces a log file:
+If the data file `activity.csv` is not already downloaded and unzipped, this is 
+the code to get it. It also produces a log file:
 ```{r}        
 if(!file.exists("activity.csv")){
         download.file(fileUrl,destfile="activity.zip")
@@ -36,7 +36,7 @@ if(!file.exists("activity.csv")){
         close(log_con)
 }
 ```
-The read in the unzipped CSV file to a data frame:
+To read in the unzipped `activity.csv` file to a data frame:
 ```{r} 
 raw <- read.csv("activity.csv",stringsAsFactors = FALSE,
                     na.strings="NA")

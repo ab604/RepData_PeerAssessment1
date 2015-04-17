@@ -215,8 +215,8 @@ opts_chunk$set(echo=TRUE,cache=TRUE)
 <pre><code class="r">fileUrl &lt;- &quot;https://github.com/ab604/RepData_PeerAssessment1/blob/master/activity.zip&quot;
 </code></pre>
 
-<p>If the data is not already downloaded and unzipped, this is the code to get it. 
-It also produces a log file:</p>
+<p>If the data file <code>activity.csv</code> is not already downloaded and unzipped, this is 
+the code to get it. It also produces a log file:</p>
 
 <pre><code class="r">if(!file.exists(&quot;activity.csv&quot;)){
         download.file(fileUrl,destfile=&quot;activity.zip&quot;)
@@ -233,7 +233,7 @@ It also produces a log file:</p>
 }
 </code></pre>
 
-<p>The read in the unzipped CSV file to a data frame:</p>
+<p>To read in the unzipped <code>activity.csv</code> file to a data frame:</p>
 
 <pre><code class="r">raw &lt;- read.csv(&quot;activity.csv&quot;,stringsAsFactors = FALSE,
                     na.strings=&quot;NA&quot;)
@@ -508,9 +508,10 @@ the version of R that I used for this assignment:</p>
 ## loaded via a namespace (and not attached):
 ##  [1] assertthat_0.1   colorspace_1.2-6 DBI_0.3.1        digest_0.6.8    
 ##  [5] evaluate_0.5.5   formatR_1.1      gtable_0.1.2     labeling_0.3    
-##  [9] lazyeval_0.1.10  magrittr_1.5     MASS_7.3-40      munsell_0.4.2   
-## [13] parallel_3.1.3   plyr_1.8.1       proto_0.3-10     Rcpp_0.11.5     
-## [17] reshape2_1.4.1   scales_0.2.4     stringr_0.6.2    tools_3.1.3
+##  [9] lazyeval_0.1.10  magrittr_1.5     markdown_0.7.4   MASS_7.3-40     
+## [13] mime_0.3         munsell_0.4.2    parallel_3.1.3   plyr_1.8.1      
+## [17] proto_0.3-10     Rcpp_0.11.5      reshape2_1.4.1   scales_0.2.4    
+## [21] stringr_0.6.2    tools_3.1.3
 </code></pre>
 
 </body>
