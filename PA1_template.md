@@ -9,19 +9,22 @@ output:
 
 The global settings for the R markdown file are to show the R code and cache the 
 data:
-```{r setoptions, echo=TRUE,results='asis',cache=TRUE}
+
+```r
 library(knitr)
 opts_chunk$set(echo=TRUE,cache=TRUE)
 ```
 
 To load and preprocess the data, I first provide the URL to the data:
-```{r}
+
+```r
 fileUrl <- "https://github.com/ab604/RepData_PeerAssessment1/blob/master/activity.zip"
 ```
 
 If the data is not already downloaded and unzipped, this is the code to get it. 
 It also produces a log file:
-```{r}        
+
+```r
 if(!file.exists("activity.csv")){
         download.file(fileUrl,destfile="activity.zip")
         dateDownloaded <- date()
@@ -37,12 +40,14 @@ if(!file.exists("activity.csv")){
 }
 ```
 The read in the unzipped CSV file to a data frame:
-```{r} 
+
+```r
 raw <- read.csv("activity.csv",stringsAsFactors = FALSE,
                     na.strings="NA")
 ```
 And convert dates strings to dates class:
-```{r}
+
+```r
 raw$date <- as.Date(raw$date)
 ```
 
@@ -57,7 +62,8 @@ and the index for the 5 minute `interval` in which the steps occurred.
 
 I calculated the total steps per day in the raw data by using aggregate to subset 
 the steps for each day and then sum them:
-```{r}
+
+```r
 raw.daily.tots <- aggregate(list(steps = raw$steps), 
                             list(date = raw$date), sum)
 ```
@@ -66,7 +72,8 @@ raw.daily.tots <- aggregate(list(steps = raw$steps),
 
 I made a histogram of total steps per day using `ggplot` and set the binwidth 
 using the Freedman-Diaconis rule:
-```{r}
+
+```r
 library(ggplot2)
 # Freedman-Diaconis rule for binwidth
 x <- raw.daily.tots$steps
@@ -77,12 +84,20 @@ plot.1 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw) +
         ggtitle("Histogram of daily total steps")
 ```
 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+
 **3. Calculate and report the mean and median of the total number of steps taken 
 per day**
 
 Summarising the raw daily totals tells us the mean and median total steps per day:
-```{r,comment=NA}
+
+```r
 summary(raw.daily.tots$steps)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     41    8841   10760   10770   13290   21190       8 
 ```
 
 ## What is the average daily activity pattern?
@@ -95,7 +110,8 @@ I used `dplyr` for this part.
 First I grouped the raw data according to the 5 minute `interval` index and 
 then caclulated the mean number of steps in each interval across all the days. 
 I've removed the missing values during the summation step:
-```{r}
+
+```r
 suppressMessages(library(dplyr))
 by_interval <- raw %>% group_by(interval)
 # Calculate average number of steps per interval for all days
@@ -105,23 +121,27 @@ interval.avg <- by_interval %>% summarise_each(funs(mean(., na.rm = TRUE)))
 Then I used `qplot` to create a line plot with the five minute `interval' on 
 the x-axis and the average steps in that interval across all the days on the 
 y-axis:
-```{r}
+
+```r
 library(ggplot2)
 # Make a line plot of interval vs. mean daily steps
 qplot(interval,steps,data=interval.avg,geom="line",
       main="Average steps per interval across all days")
 ```
 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+
 **2. Which 5-minute interval, on average across all the days in the dataset, 
 contains the maximum number of steps?**
 
 I used the `filter` function in `dplyr` to find interval with maximum mean steps
 across all the days like so:
-```{r}
+
+```r
 library(dplyr)
 max.steps.int <- filter(interval.avg,steps==max(interval.avg$steps))
 ```
-This yields maximum mean steps across all the days as interval `r max.steps.int[,1]`.
+This yields maximum mean steps across all the days as interval 835.
 
 ## Imputing missing values
 
@@ -129,11 +149,12 @@ This yields maximum mean steps across all the days as interval `r max.steps.int[
 (i.e. the total number of rows with `NA`s)**
 
 Here I used `is.na` to find the answer:
-```{r}
+
+```r
 raw.na <- sum(is.na(raw$steps))
 ```
 
-This yields the number of `NA`s in the `raw` data frame as `r raw.na`.
+This yields the number of `NA`s in the `raw` data frame as 2304.
 
 **2 and 3. Devise a strategy for filling in all of the missing values in the dataset.
 Create a new dataset that is equal to the original dataset but with the missing 
@@ -144,7 +165,8 @@ interval across all the days.
 Again I used `dpylr` to group the data by interval. Then I used `mutate` to 
 replace the `NA`s in `steps` with the mean value of the steps for that interval 
 across all the days. This yields a new data frame calls `impute.dat` like so:  
-```{r}
+
+```r
 library(dplyr)
 impute.dat <- raw %>% group_by(interval) %>%
         mutate(steps = ifelse(is.na(steps), mean(steps, na.rm = T), steps))
@@ -159,14 +181,16 @@ of steps?**
 As previously, I calculated the total steps per day in `impute.dat` by using 
 aggregate to subset the steps for each day and then sum them:
 
-```{r}
+
+```r
 impute.daily.tots <- aggregate(list(steps = impute.dat$steps), 
                             list(date = impute.dat$date), sum)
 ```
 
 As previously, I created a histogram for `impute.daily.tots` with `ggplot` and 
 set the binwidth using the Freedman-Diaconis rule:
-```{r}
+
+```r
 # Freedman-Diaconis rule for binwidth
 x.2 <- impute.daily.tots$steps
 bw.2 <- 2 * IQR(x.2,na.rm=T) / (length(x.2)^(1/3))
@@ -176,10 +200,18 @@ plot.2 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw.2) +
         ggtitle("Histogram of daily total steps with imputed values")
 ```
 
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
+
 As previously, the summary information indicates the mean and median total steps
 per day in the imputed data (it also show that no `NA`s are present):
-```{r,comment=NA}
+
+```r
 summary(impute.daily.tots$steps)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+     41    9819   10770   10770   12810   21190 
 ```
 
 Comparing this with summary from the raw daily totals, we can see that the mean 
@@ -201,7 +233,8 @@ What I did was use `dplyr` to add a column to `impute.dat` indicating whether
 the date is a weekend or not using the `is.weekend` function in the `chron` 
 package, like so:
 
-```{r}
+
+```r
 library(dplyr)
 library(chron)
 impute.dat <- mutate(impute.dat, day = (weekdays(date)),
@@ -210,7 +243,8 @@ impute.dat <- mutate(impute.dat, day = (weekdays(date)),
 
 I then created two new data frames for the weekdays and weekend by filtering
 on the `Is.Weekend` column, like so:
-```{r}
+
+```r
 library(dplyr)
 weekday.dat <- filter(impute.dat,Is.Weekend == FALSE) %>%
         select(interval, steps, date) 
@@ -221,7 +255,8 @@ weekend.dat <- filter(impute.dat,Is.Weekend == TRUE) %>%
         
 As previously, I then caclulated the mean number of steps in each interval 
 across all the days for each of these data frames, like so:
-```{r}
+
+```r
 library(dplyr)
 weekday_interval <- weekday.dat %>% group_by(interval)
 # Calculate average number of steps per interval for weekdays
@@ -240,7 +275,8 @@ or weekend days (y-axis).**
 Finally I plotted the `weekend.avg` and `weekday.avg` data frames using `ggplot`
 and the `GridExtra` package.
 
-```{r}
+
+```r
 library(ggplot2)
 suppressMessages(library(gridExtra))
 # Weekend plot
@@ -254,8 +290,9 @@ p4 <- ggplot(weekday.avg,aes(interval,steps)) +
 
 # Print both panels onto a single plot with two rows
 grid.arrange(p3,p4,ncol=1,nrow=2)
-
 ```
+
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png) 
 
 As we can see, people generally walk about more throughout the day on the 
 weekend than during the week, where most of the activity is in the first half
