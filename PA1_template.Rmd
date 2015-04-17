@@ -196,7 +196,7 @@ doesn't seem to change the estimates much.
 ## Are there differences in activity patterns between weekdays and weekends?
 
 **1. Create a new factor variable in the dataset with two levels – “weekday” 
-and “weekend” indicating whether a given date is a weekday or weekend day. **
+and “weekend” indicating whether a given date is a weekday or weekend day.**
 
 I diverged from the instructions here as I found it easier for me to do this
 part another way. Hopefully this is acceptable as it should yield the same result 
