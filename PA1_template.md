@@ -306,3 +306,38 @@ grid.arrange(p3,p4,ncol=1,nrow=2)
 As we can see, people generally walk about more throughout the day on the 
 weekend than during the week, where most of the activity is in the first half
 of the day.
+
+Here is the session information about the packages I used, their versions, and 
+the version of R that I used for this assignment:
+
+```r
+sessionInfo()
+```
+
+```
+## R version 3.1.3 (2015-03-09)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## locale:
+## [1] LC_COLLATE=English_United Kingdom.1252 
+## [2] LC_CTYPE=English_United Kingdom.1252   
+## [3] LC_MONETARY=English_United Kingdom.1252
+## [4] LC_NUMERIC=C                           
+## [5] LC_TIME=English_United Kingdom.1252    
+## 
+## attached base packages:
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
+## 
+## other attached packages:
+## [1] gridExtra_0.9.1 chron_2.3-45    dplyr_0.4.1     ggplot2_1.0.1  
+## [5] knitr_1.9      
+## 
+## loaded via a namespace (and not attached):
+##  [1] assertthat_0.1   colorspace_1.2-6 DBI_0.3.1        digest_0.6.8    
+##  [5] evaluate_0.5.5   formatR_1.1      gtable_0.1.2     labeling_0.3    
+##  [9] lazyeval_0.1.10  magrittr_1.5     MASS_7.3-40      munsell_0.4.2   
+## [13] parallel_3.1.3   plyr_1.8.1       proto_0.3-10     Rcpp_0.11.5     
+## [17] reshape2_1.4.1   scales_0.2.4     stringr_0.6.2    tools_3.1.3
+```

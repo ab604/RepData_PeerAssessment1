@@ -269,3 +269,9 @@ grid.arrange(p3,p4,ncol=1,nrow=2)
 As we can see, people generally walk about more throughout the day on the 
 weekend than during the week, where most of the activity is in the first half
 of the day.
+
+Here is the session information about the packages I used, their versions, and 
+the version of R that I used for this assignment:
+```{r}
+sessionInfo()
+```
