@@ -53,7 +53,7 @@ raw$date <- as.Date(raw$date)
 
 The data frame is called `raw` contains 17568 observations of activity data for 
 steps taken for 5 minute intervals from the 1st October 2010 to 30th November 2010. 
-The obervations therefore are for three variables: the number of `steps`, the `date` 
+The observations therefore are for three variables: the number of `steps`, the `date` 
 and the index for the 5 minute `interval` in which the steps occurred.
 
 ## What is mean total number of steps taken per day?
@@ -110,7 +110,7 @@ and the average number of steps taken, averaged across all days (y-axis)**
 I used `dplyr` for this part.
 
 First I grouped the raw data according to the 5 minute `interval` index and 
-then caclulated the mean number of steps in each interval across all the days. 
+then calculated the mean number of steps in each interval across all the days. 
 I've removed the missing values during the summation step:
 
 ```r
@@ -260,7 +260,7 @@ weekend.dat <- filter(impute.dat,Is.Weekend == TRUE) %>%
         select(interval, steps, date)
 ```
         
-As previously, I then caclulated the mean number of steps in each interval 
+As previously, I then calculated the mean number of steps in each interval 
 across all the days for each of these data frames, like so:
 
 ```r

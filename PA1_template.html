@@ -246,7 +246,7 @@ It also produces a log file:</p>
 
 <p>The data frame is called <code>raw</code> contains 17568 observations of activity data for 
 steps taken for 5 minute intervals from the 1st October 2010 to 30th November 2010. 
-The obervations therefore are for three variables: the number of <code>steps</code>, the <code>date</code> 
+The observations therefore are for three variables: the number of <code>steps</code>, the <code>date</code> 
 and the index for the 5 minute <code>interval</code> in which the steps occurred.</p>
 
 <h2>What is mean total number of steps taken per day?</h2>
@@ -299,7 +299,7 @@ and the average number of steps taken, averaged across all days (y-axis)</strong
 <p>I used <code>dplyr</code> for this part.</p>
 
 <p>First I grouped the raw data according to the 5 minute <code>interval</code> index and 
-then caclulated the mean number of steps in each interval across all the days. 
+then calculated the mean number of steps in each interval across all the days. 
 I&#39;ve removed the missing values during the summation step:</p>
 
 <pre><code class="r">suppressMessages(library(dplyr))
@@ -437,7 +437,7 @@ weekend.dat &lt;- filter(impute.dat,Is.Weekend == TRUE) %&gt;%
         select(interval, steps, date)
 </code></pre>
 
-<p>As previously, I then caclulated the mean number of steps in each interval 
+<p>As previously, I then calculated the mean number of steps in each interval 
 across all the days for each of these data frames, like so:</p>
 
 <pre><code class="r">library(dplyr)
