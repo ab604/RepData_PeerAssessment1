@@ -125,7 +125,8 @@ across all the days like so:
 library(dplyr)
 max.steps.int <- filter(interval.avg,steps==max(interval.avg$steps))
 ```
-This yields maximum mean steps across all the days as interval `r max.steps.int[,1]`.
+This yields maximum mean steps across all the days as interval 
+**`r max.steps.int[,1]`**.
 
 ## Imputing missing values
 
@@ -137,9 +138,9 @@ Here I used `is.na` to find the answer:
 raw.na <- sum(is.na(raw$steps))
 ```
 
-This yields the number of `NA`s in the `raw` data frame as `r raw.na`.
+This yields the number of `NA`s in the `raw` data frame as **`r raw.na`**.
 
-**2 and 3. Devise a strategy for filling in all of the missing values in the dataset.
+**2. and 3. Devise a strategy for filling in all of the missing values in the dataset.
 Create a new dataset that is equal to the original dataset but with the missing 
 data filled in.**
 
