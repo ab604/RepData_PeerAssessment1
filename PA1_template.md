@@ -84,7 +84,9 @@ plot.1 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw) +
         ggtitle("Histogram of daily total steps")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+![plot of chunk plot.1](figure/plot.1-1.png) 
+
+![Figure 1](./figure/plot1-1.png)
 
 **3. Calculate and report the mean and median of the total number of steps taken 
 per day**
@@ -129,7 +131,9 @@ qplot(interval,steps,data=interval.avg,geom="line",
       main="Average steps per interval across all days")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+![plot of chunk plot.2](figure/plot.2-1.png) 
+
+![Figure 2](./figure/plot2-1.png)
 
 **2. Which 5-minute interval, on average across all the days in the dataset, 
 contains the maximum number of steps?**
@@ -195,12 +199,14 @@ set the binwidth using the Freedman-Diaconis rule:
 x.2 <- impute.daily.tots$steps
 bw.2 <- 2 * IQR(x.2,na.rm=T) / (length(x.2)^(1/3))
 # Plot histogram
-plot.2 <- ggplot(impute.daily.tots,aes(x = steps))
-plot.2 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw.2) +
+plot.3 <- ggplot(impute.daily.tots,aes(x = steps))
+plot.3 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw.2) +
         ggtitle("Histogram of daily total steps with imputed values")
 ```
 
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png) 
+![plot of chunk plot.3](figure/plot.3-1.png) 
+
+![Figure 3](./figure/plot3-1.png)
 
 As previously, the summary information indicates the mean and median total steps
 per day in the imputed data (it also show that no `NA`s are present):
@@ -280,7 +286,7 @@ and the `GridExtra` package.
 library(ggplot2)
 suppressMessages(library(gridExtra))
 # Weekend plot
- p3 <- ggplot(weekend.avg,aes(interval,steps)) +
+p3 <- ggplot(weekend.avg,aes(interval,steps)) +
         geom_line() +
         ggtitle("WeekEnd") 
 # Weekday plot
@@ -292,7 +298,9 @@ p4 <- ggplot(weekday.avg,aes(interval,steps)) +
 grid.arrange(p3,p4,ncol=1,nrow=2)
 ```
 
-![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png) 
+![plot of chunk plot.4](figure/plot.4-1.png) 
+
+![Figure 4](./figure/plot4-1.png)
 
 As we can see, people generally walk about more throughout the day on the 
 weekend than during the week, where most of the activity is in the first half

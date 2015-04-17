@@ -66,7 +66,7 @@ raw.daily.tots <- aggregate(list(steps = raw$steps),
 
 I made a histogram of total steps per day using `ggplot` and set the binwidth 
 using the Freedman-Diaconis rule:
-```{r}
+```{r plot.1}
 library(ggplot2)
 # Freedman-Diaconis rule for binwidth
 x <- raw.daily.tots$steps
@@ -76,6 +76,8 @@ plot.1 <- ggplot(raw.daily.tots,aes(x = steps))
 plot.1 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw) +
         ggtitle("Histogram of daily total steps")
 ```
+
+![Figure 1](./figure/plot1-1.png)
 
 **3. Calculate and report the mean and median of the total number of steps taken 
 per day**
@@ -105,12 +107,14 @@ interval.avg <- by_interval %>% summarise_each(funs(mean(., na.rm = TRUE)))
 Then I used `qplot` to create a line plot with the five minute `interval' on 
 the x-axis and the average steps in that interval across all the days on the 
 y-axis:
-```{r}
+```{r plot.2}
 library(ggplot2)
 # Make a line plot of interval vs. mean daily steps
 qplot(interval,steps,data=interval.avg,geom="line",
       main="Average steps per interval across all days")
 ```
+
+![Figure 2](./figure/plot2-1.png)
 
 **2. Which 5-minute interval, on average across all the days in the dataset, 
 contains the maximum number of steps?**
@@ -166,15 +170,17 @@ impute.daily.tots <- aggregate(list(steps = impute.dat$steps),
 
 As previously, I created a histogram for `impute.daily.tots` with `ggplot` and 
 set the binwidth using the Freedman-Diaconis rule:
-```{r}
+```{r plot.3}
 # Freedman-Diaconis rule for binwidth
 x.2 <- impute.daily.tots$steps
 bw.2 <- 2 * IQR(x.2,na.rm=T) / (length(x.2)^(1/3))
 # Plot histogram
-plot.2 <- ggplot(impute.daily.tots,aes(x = steps))
-plot.2 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw.2) +
+plot.3 <- ggplot(impute.daily.tots,aes(x = steps))
+plot.3 + geom_histogram(colour = "darkgreen", fill = "white", binwidth= bw.2) +
         ggtitle("Histogram of daily total steps with imputed values")
 ```
+
+![Figure 3](./figure/plot3-1.png)
 
 As previously, the summary information indicates the mean and median total steps
 per day in the imputed data (it also show that no `NA`s are present):
@@ -240,11 +246,11 @@ or weekend days (y-axis).**
 Finally I plotted the `weekend.avg` and `weekday.avg` data frames using `ggplot`
 and the `GridExtra` package.
 
-```{r}
+```{r plot.4}
 library(ggplot2)
 suppressMessages(library(gridExtra))
 # Weekend plot
- p3 <- ggplot(weekend.avg,aes(interval,steps)) +
+p3 <- ggplot(weekend.avg,aes(interval,steps)) +
         geom_line() +
         ggtitle("WeekEnd") 
 # Weekday plot
@@ -256,6 +262,8 @@ p4 <- ggplot(weekday.avg,aes(interval,steps)) +
 grid.arrange(p3,p4,ncol=1,nrow=2)
 
 ```
+
+![Figure 4](./figure/plot4-1.png)
 
 As we can see, people generally walk about more throughout the day on the 
 weekend than during the week, where most of the activity is in the first half
